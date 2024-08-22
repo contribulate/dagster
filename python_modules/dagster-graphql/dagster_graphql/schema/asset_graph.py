@@ -1215,13 +1215,10 @@ class GrapheneAssetNode(graphene.ObjectType):
 
     def resolve_kinds(self, _graphene_info: ResolveInfo) -> Sequence[str]:
         if self._external_asset_node.compute_kind:
-            storage_kind = (self._external_asset_node.tags or {}).get("dagster/storage_kind")
-            if storage_kind:
-                return [self._external_asset_node.compute_kind, storage_kind]
             return [self._external_asset_node.compute_kind]
 
         return [
-            key.split("/", maxsplit=2)[-1]
+            key[len(KIND_PREFIX) :]
             for key in (self._external_asset_node.tags or {}).keys()
             if get_definition_tag_type(key) == TagType.HIDDEN and key.startswith(KIND_PREFIX)
         ]

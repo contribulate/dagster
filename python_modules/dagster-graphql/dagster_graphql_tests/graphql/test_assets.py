@@ -2637,7 +2637,7 @@ class TestAssetAwareEventLog(ExecutingGraphQLContextTestMatrix):
         )
 
         third_kinds_key = result.data["assetNodeOrError"]
-        assert set(third_kinds_key["kinds"]) == {"python", "snowflake"}
+        assert set(third_kinds_key["kinds"]) == {"python"}
 
         result = execute_dagster_graphql(
             graphql_context,
