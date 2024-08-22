@@ -2311,26 +2311,6 @@ def test_asset_spec_with_kinds() -> None:
         @multi_asset(compute_kind="my_compute_kind", specs=[AssetSpec("asset1", kinds={"python"})])
         def assets3(): ...
 
-    @multi_asset(
-        specs=[AssetSpec("asset1", kinds={"snowflake"}, tags={"dagster/storage_kind": "snowflake"})]
-    )
-    def assets4(): ...
-
-    @multi_asset(specs=[AssetSpec("asset1", tags={"dagster/storage_kind": "snowflake"})])
-    def assets5(): ...
-
-    with pytest.raises(
-        DagsterInvalidDefinitionError,
-        match="If specifying dagster/storage_kind=bigquery and kinds, bigquery must be in the list of kinds",
-    ):
-
-        @multi_asset(
-            specs=[
-                AssetSpec("asset1", kinds={"snowflake"}, tags={"dagster/storage_kind": "bigquery"})
-            ]
-        )
-        def assets4(): ...
-
 
 def test_asset_out_with_tags():
     @multi_asset(outs={"asset1": AssetOut(tags={"a": "b"})})

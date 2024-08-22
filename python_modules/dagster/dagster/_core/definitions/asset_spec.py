@@ -10,6 +10,7 @@ from dagster._core.definitions.declarative_automation.automation_condition impor
 from dagster._core.definitions.partition import PartitionsDefinition
 from dagster._core.definitions.utils import validate_asset_owner
 from dagster._core.errors import DagsterInvalidDefinitionError
+from dagster._core.storage.tags import KIND_PREFIX
 from dagster._serdes.serdes import whitelist_for_serdes
 from dagster._utils.internal_init import IHasInternalInit
 
@@ -84,7 +85,6 @@ class AssetSpec(
             ("automation_condition", PublicAttr[Optional[AutomationCondition]]),
             ("owners", PublicAttr[Sequence[str]]),
             ("tags", PublicAttr[Mapping[str, str]]),
-            ("kinds", PublicAttr[Optional[Set[str]]]),
             ("partitions_def", PublicAttr[Optional[PartitionsDefinition]]),
         ],
     ),
@@ -157,11 +157,10 @@ class AssetSpec(
         if kinds is not None and len(kinds) > 2:
             raise DagsterInvalidDefinitionError("Assets can have at most two kinds currently.")
 
-        storage_kind = (tags or {}).get("dagster/storage_kind")
-        if kinds is not None and storage_kind is not None and storage_kind not in kinds:
-            raise DagsterInvalidDefinitionError(
-                f"If specifying dagster/storage_kind={storage_kind} and kinds, {storage_kind} must be in the list of kinds"
-            )
+        tags_with_kinds = {
+            **(validate_tags_strict(tags) or {}),
+            **{f"{KIND_PREFIX}{kind}": "" for kind in kinds or []},
+        }
 
         return super().__new__(
             cls,
@@ -183,8 +182,7 @@ class AssetSpec(
                 AutomationCondition,
             ),
             owners=owners,
-            tags=validate_tags_strict(tags) or {},
-            kinds=check.opt_set_param(kinds, "kinds", of_type=str),
+            tags=tags_with_kinds,
             partitions_def=check.opt_inst_param(
                 partitions_def, "partitions_def", PartitionsDefinition
             ),
@@ -241,3 +239,7 @@ class AssetSpec(
             if self.automation_condition
             else None
         )
+
+    @property
+    def kinds(self) -> Set[str]:
+        return {tag[len(KIND_PREFIX) :] for tag in self.tags if tag.startswith(KIND_PREFIX)}
