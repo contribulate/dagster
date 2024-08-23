@@ -33,7 +33,7 @@ from dagster._core.remote_representation.external_data import (
 )
 from dagster._core.snap.node import GraphDefSnap, OpDefSnap
 from dagster._core.storage.batch_asset_record_loader import BatchAssetRecordLoader
-from dagster._core.storage.tags import KIND_PREFIX, TagType, get_definition_tag_type
+from dagster._core.storage.tags import KIND_PREFIX
 from dagster._core.utils import is_valid_email
 from dagster._core.workspace.permissions import Permissions
 from dagster._utils.caching_instance_queryer import CachingInstanceQueryer
@@ -1220,7 +1220,7 @@ class GrapheneAssetNode(graphene.ObjectType):
         return [
             key[len(KIND_PREFIX) :]
             for key in (self._external_asset_node.tags or {}).keys()
-            if get_definition_tag_type(key) == TagType.HIDDEN and key.startswith(KIND_PREFIX)
+            if key.startswith(KIND_PREFIX)
         ]
 
     def resolve_op(
