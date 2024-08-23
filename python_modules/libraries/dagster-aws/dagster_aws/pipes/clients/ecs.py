@@ -1,5 +1,5 @@
 from pprint import pformat
-from typing import Any, Dict, List, Literal, Optional, TypedDict, cast
+from typing import Any, Dict, List, Optional, cast
 
 import boto3
 import botocore
@@ -15,30 +15,11 @@ from dagster._core.pipes.client import (
     PipesMessageReader,
 )
 from dagster._core.pipes.utils import PipesEnvContextInjector, open_pipes_session
-from typing_extensions import NotRequired, Unpack
+from mypy_boto3_ecs.client import ECSClient
+from mypy_boto3_ecs.type_defs import RunTaskRequestRequestTypeDef
+from typing_extensions import Unpack
 
 from dagster_aws.pipes.message_readers import PipesCloudWatchMessageReader
-
-
-class RunECSTaskParams(TypedDict):
-    launchType: NotRequired[Literal["EC2", "FARGATE", "EXTERNAL"]]
-    cluster: NotRequired[str]
-    group: NotRequired[str]
-    networkConfiguration: NotRequired[Dict[str, Any]]
-    overrides: NotRequired[Dict[str, Any]]
-    placementConstraints: NotRequired[List[Dict[str, Any]]]
-    placementStrategy: NotRequired[List[Dict[str, Any]]]
-    platformVersion: NotRequired[str]
-    referenceId: NotRequired[str]
-    startedBy: NotRequired[str]
-    tags: NotRequired[List[Dict[str, str]]]
-    clientToken: NotRequired[str]
-    volumeConfigurations: NotRequired[List[Dict[str, Any]]]
-    capacityProviderStrategy: NotRequired[List[Dict[str, Any]]]
-    enableEcsManagedTags: NotRequired[bool]
-    enableExecuteCommand: NotRequired[bool]
-    propagateTags: NotRequired[Literal["TASK_DEFINITION", "SERVICE", "NONE"]]
-    count: int
 
 
 @experimental
@@ -56,7 +37,7 @@ class PipesECSClient(PipesClient, TreatAsResourceParam):
 
     def __init__(
         self,
-        client: Optional[boto3.client] = None,
+        client: Optional[ECSClient] = None,
         context_injector: Optional[PipesContextInjector] = None,
         message_reader: Optional[PipesMessageReader] = None,
         forward_termination: bool = True,
@@ -76,7 +57,7 @@ class PipesECSClient(PipesClient, TreatAsResourceParam):
         context: OpExecutionContext,
         task_definition: str,
         extras: Optional[Dict[str, Any]] = None,
-        **params: Unpack[RunECSTaskParams],
+        **params: Unpack[RunTaskRequestRequestTypeDef],
     ) -> PipesClientCompletedInvocation:
         """Start a ECS task, enriched with the pipes protocol.
 

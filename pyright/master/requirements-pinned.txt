@@ -25,7 +25,6 @@ apache-airflow-providers-sqlite==3.8.2
 apeye==1.4.1
 apeye-core==1.1.5
 apispec==6.6.1
-appnope==0.1.4
 argcomplete==3.5.0
 argon2-cffi==23.1.0
 argon2-cffi-bindings==21.2.0
@@ -37,14 +36,13 @@ asn1crypto==1.5.1
 asttokens==2.4.1
 astunparse==1.6.3
 async-lru==2.0.4
-async-timeout==4.0.3
 attrs==24.2.0
 autodocsumm==0.2.13
 autoflake==2.3.1
 -e python_modules/automation
 avro==1.11.3
 avro-gen3==0.7.13
-aws-sam-translator==1.89.0
+aws-sam-translator==1.91.0
 aws-xray-sdk==2.14.0
 azure-core==1.30.2
 azure-identity==1.17.1
@@ -58,9 +56,11 @@ billiard==4.2.0
 bitmath==1.3.3.1
 bleach==6.1.0
 blinker==1.8.2
-bokeh==3.5.1
+bokeh==3.5.2
 boto3==1.35.4
+boto3-stubs==1.35.4
 botocore==1.35.4
+botocore-stubs==1.35.4
 buildkite-test-collector==0.1.8
 cachecontrol==0.14.0
 cached-property==1.5.2
@@ -209,7 +209,6 @@ duckdb==1.0.0
 ecdsa==0.19.0
 email-validator==1.3.1
 entrypoints==0.4
-exceptiongroup==1.2.2
 execnet==2.1.1
 executing==2.0.1
 expandvars==0.12.0
@@ -255,6 +254,7 @@ graphql-core==3.2.3
 graphql-relay==3.2.0
 graphviz==0.20.3
 great-expectations==0.17.11
+greenlet==3.0.3
 grpcio==1.66.0
 grpcio-health-checking==1.62.3
 grpcio-status==1.62.3
@@ -320,7 +320,7 @@ langchain-community==0.2.9
 langchain-core==0.2.34
 langchain-openai==0.1.14
 langchain-text-splitters==0.2.2
-langsmith==0.1.102
+langsmith==0.1.104
 lazy-object-proxy==1.10.0
 leather==0.4.0
 limits==3.13.0
@@ -357,6 +357,14 @@ msal-extensions==1.2.0
 msgpack==1.0.8
 multidict==6.0.5
 multimethod==1.10
+mypy-boto3-cloudformation==1.35.0
+mypy-boto3-dynamodb==1.35.0
+mypy-boto3-ec2==1.35.3
+mypy-boto3-ecs==1.35.2
+mypy-boto3-lambda==1.35.3
+mypy-boto3-rds==1.35.0
+mypy-boto3-s3==1.35.2
+mypy-boto3-sqs==1.35.0
 mypy-extensions==1.0.0
 mypy-protobuf==3.6.0
 mysql-connector-python==9.0.0
@@ -372,6 +380,18 @@ noteable-origami==1.1.5
 notebook==7.2.1
 notebook-shim==0.2.4
 numpy==1.26.4
+nvidia-cublas-cu12==12.1.3.1
+nvidia-cuda-cupti-cu12==12.1.105
+nvidia-cuda-nvrtc-cu12==12.1.105
+nvidia-cuda-runtime-cu12==12.1.105
+nvidia-cudnn-cu12==9.1.0.70
+nvidia-cufft-cu12==11.0.2.54
+nvidia-curand-cu12==10.3.2.106
+nvidia-cusolver-cu12==11.4.5.107
+nvidia-cusparse-cu12==12.1.0.106
+nvidia-nccl-cu12==2.20.5
+nvidia-nvjitlink-cu12==12.6.20
+nvidia-nvtx-cu12==12.1.105
 oauth2client==4.1.3
 oauthlib==3.2.2
 objgraph==3.6.1
@@ -408,7 +428,7 @@ partd==1.4.2
 path==16.16.0
 pathable==0.4.3
 pathspec==0.12.1
-pathvalidate==3.2.0
+pathvalidate==3.2.1
 pendulum==2.1.2
 pexpect==4.9.0
 pillow==10.4.0
@@ -438,7 +458,7 @@ pyarrow-hotfix==0.6
 pyasn1==0.6.0
 pyasn1-modules==0.4.0
 pycparser==2.22
-pydantic==1.10.17
+pydantic==1.10.18
 pydata-google-auth==1.8.2
 pyflakes==3.2.0
 pygments==2.18.0
@@ -498,7 +518,7 @@ s3transfer==0.10.2
 scikit-learn==1.5.1
 scipy==1.14.1
 scrapbook==0.5.0
-sdf-cli==0.3.21
+sdf-cli==0.3.23
 seaborn==0.13.2
 selenium==4.23.1
 semver==3.0.2
@@ -515,7 +535,7 @@ skein==0.8.2
 skl2onnx==1.17.0
 slack-sdk==3.31.0
 sling==1.2.15
-sling-mac-arm64==1.2.15
+sling-linux-amd64==1.2.15
 smmap==5.0.1
 sniffio==1.3.1
 snowballstemmer==2.2.0
@@ -538,7 +558,7 @@ sphinxcontrib-serializinghtml==2.0.0
 sqlalchemy==1.4.53
 sqlalchemy-jsonfield==1.0.2
 sqlalchemy-utils==0.41.2
-sqlglot==25.16.0
+sqlglot==25.16.1
 sqlglotrs==0.2.9
 sqlparse==0.5.1
 sshpubkeys==3.3.1
@@ -547,7 +567,7 @@ stack-data==0.6.3
 starlette==0.38.2
 structlog==24.4.0
 sympy==1.13.2
-syrupy==4.6.4
+syrupy==4.7.1
 tabledata==1.3.3
 tabulate==0.9.0
 tblib==3.0.0
@@ -571,6 +591,7 @@ tqdm==4.66.5
 traitlets==5.14.3
 trio==0.26.2
 trio-websocket==0.11.1
+triton==3.0.0
 -e examples/experimental/dagster-airlift/examples/tutorial-example
 -e examples/tutorial_notebook_assets
 twilio==9.2.3
@@ -578,6 +599,7 @@ twine==1.15.0
 typeguard==4.3.0
 typepy==1.3.2
 typer==0.12.4
+types-awscrt==0.21.2
 types-backports==0.1.3
 types-certifi==2021.10.8.3
 types-cffi==1.16.0.20240331
@@ -592,6 +614,7 @@ types-python-dateutil==2.9.0.20240821
 types-pytz==2024.1.0.20240417
 types-pyyaml==6.0.12.20240808
 types-requests==2.31.0.6
+types-s3transfer==0.10.1
 types-setuptools==73.0.0.20240822
 types-simplejson==3.19.0.20240801
 types-six==1.16.21.20240513
